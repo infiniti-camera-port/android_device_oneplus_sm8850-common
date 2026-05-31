@@ -65,6 +65,7 @@ blob_fixups: blob_fixups_user_type = {
         'odm/bin/hw/vendor-oplus-hardware-touch-V2-hbp5-service',
         'odm/bin/hw/vendor.oplus.hardware.biometrics.fingerprint@2.1-service_uff',
         'odm/bin/touchDaemon',
+        'odm/lib64/libdisplayadfr2minfps_qcom.so',
         'odm/lib64/libdisplayfossfeature_nature.so',
         'odm/lib64/libstc_color_feature.so',
         'vendor/bin/hw/audiohalservice.qti',
@@ -111,7 +112,6 @@ blob_fixups: blob_fixups_user_type = {
         'vendor/etc/media_codecs_canoe_sku3.xml',
         'vendor/etc/media_codecs_canoe_v1.xml',
         'vendor/etc/media_codecs_canoe_v2.xml',
-        'vendor/etc/media_codecs_canoe_v3.xml',
     ): blob_fixup()
         .regex_replace('.*media_codecs_(google_audio|google_c2|google_telephony|google_video|vendor_audio).*\n', '')
         .regex_replace(r'([ \t]*</MediaCodecs>)', r'    <Include href="media_codecs_dolby_vision.xml" />\n\1'),
@@ -123,7 +123,6 @@ blob_fixups: blob_fixups_user_type = {
     (
         'vendor/etc/media_codecs_canoe_v1_vendor.xml',
         'vendor/etc/media_codecs_canoe_v2_vendor.xml',
-        'vendor/etc/media_codecs_canoe_v3_vendor.xml',
         'vendor/etc/media_codecs_canoe_sku1_vendor.xml',
         'vendor/etc/media_codecs_canoe_sku2_vendor.xml',
     ): blob_fixup()
@@ -179,6 +178,13 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('android.hardware.graphics.composer3-V3-ndk.so', 'android.hardware.graphics.composer3-V4-ndk.so'),
     'vendor/lib64/libsdmcore.so': blob_fixup()
         .add_needed('libbase.so'),
+    (
+        'vendor/bin/wifi_qos_daemon',
+        'vendor/lib64/libVoiceSdk.so',
+        'vendor/lib64/libcapiv2uvvendor.so',
+        'vendor/lib64/liblistensoundmodel2vendor.so',
+    ): blob_fixup()
+        .replace_needed('libtensorflowlite_c.so', 'libtensorflowlite_c_vendor.so'),
     'vendor/usr/keylayout/gpio-keys.kl': blob_fixup()
         .add_line_if_missing('key 735   ASSIST'),
     # APS turbo fix: on the port, the camera app's classloader namespace cannot dlopen the /odm
