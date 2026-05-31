@@ -42,13 +42,7 @@ lib_fixups: lib_fixups_user_type = {
         'com.qualcomm.qti.dpm.api@1.0',
         'libosensenativeproxy_client',
         'libPanelChaplin',
-        'libpwirisfeature',
         'vendor.oplus.hardware.displaycolorfeature-V1-ndk',
-        'vendor.pixelworks.hardware.display@1.0',
-        'vendor.pixelworks.hardware.display@1.1',
-        'vendor.pixelworks.hardware.display@1.2',
-        'vendor.pixelworks.hardware.feature@1.0',
-        'vendor.pixelworks.hardware.feature@1.1',
         'vendor.qti.ImsRtpService-V2-ndk',
         'vendor.qti.diaghal-V1-ndk',
         'vendor.qti.hardware.dpmaidlservice-V1-ndk',
@@ -65,6 +59,7 @@ blob_fixups: blob_fixups_user_type = {
         'odm/bin/hw/vendor-oplus-hardware-touch-V2-hbp5-service',
         'odm/bin/hw/vendor.oplus.hardware.biometrics.fingerprint@2.1-service_uff',
         'odm/bin/touchDaemon',
+        'odm/lib64/libdisplayadfr2minfps_qcom.so',
         'odm/lib64/libdisplayfossfeature_nature.so',
         'odm/lib64/libstc_color_feature.so',
         'vendor/bin/hw/audiohalservice.qti',
@@ -145,6 +140,13 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('android.hardware.graphics.composer3-V3-ndk.so', 'android.hardware.graphics.composer3-V4-ndk.so'),
     'vendor/lib64/libsdmcore.so': blob_fixup()
         .add_needed('libbase.so'),
+    (
+        'vendor/bin/wifi_qos_daemon',
+        'vendor/lib64/libVoiceSdk.so',
+        'vendor/lib64/libcapiv2uvvendor.so',
+        'vendor/lib64/liblistensoundmodel2vendor.so',
+    ): blob_fixup()
+        .replace_needed('libtensorflowlite_c.so', 'libtensorflowlite_c_vendor.so'),
     'vendor/usr/keylayout/gpio-keys.kl': blob_fixup()
         .add_line_if_missing('key 735   ASSIST'),
 }  # fmt: skip
