@@ -113,6 +113,12 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.context_hub.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.context_hub.xml
 endif
 
+# Cryptoeng
+# Device-tree-authored HAL init rc (see configs/init/): installed here instead of
+# blob-fixup-patched out of the OEM odm extract, so it stays host_init_verifier-clean.
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/init/vendor.oplus.hardware.cryptoeng@1.0-service.rc:$(TARGET_COPY_OUT_ODM)/etc/init/vendor.oplus.hardware.cryptoeng@1.0-service.rc
+
 # Dalvik
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
