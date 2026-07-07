@@ -137,6 +137,16 @@ PRODUCT_PACKAGES += \
 # Enforce generic ramdisk allow list
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 
+# Gallery (Oplus OLive motion/live photo)
+# Declare the OEM feature flags the OppoGallery2 OLive path gates on, matching OOS:
+#   - feature_is_support_olive (+ _slide_play) via the Oplus AppFeatureProvider; ingestion
+#     needs the OplusCfgFilePolicy.getCfgLevelList fix in hardware/oplus (oplus-fwk) to
+#     enumerate /system_ext/etc/extension on LOS (the port had stubbed it to return empty).
+#   - oplus.software.gallery.olive via PackageManager.hasSystemFeature (standard SystemConfig).
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/oplus-features/com.oplus.app-features.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/extension/com.oplus.app-features.xml \
+    $(LOCAL_PATH)/configs/oplus-features/com.oplus.android-features.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/com.oplus.android-features.xml
+
 # Fastboot
 PRODUCT_PACKAGES += \
     android.hardware.fastboot-service.example_recovery \
